@@ -93,13 +93,11 @@ fs1 = VecComputeFeature(ii_ims, fmat(:,1));
 fs2 = ComputeFeature(ii_ims, all_ftypes(1,:));
 assert(sum(abs(fs1-fs2')> eps) == 0, 'Problem in VecComputeFeature')
 
+%% LoadSaveImData sanity check
+
+LoadSaveImData('TrainingImages/FACES/', 100, 'FaceData.mat');
+
 %%
-% 
-% % -------------------------------------------
-% % Debug 2.5 - Prgm 13
-% % -------------------------------------------
-% LoadSaveImData('../TrainingImages/FACES/',100,'FaceData.mat');
-% 
 % % -------------------------------------------
 % % Debug 2.5 - Prgm 14
 % % -------------------------------------------
