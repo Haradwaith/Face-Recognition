@@ -1,17 +1,15 @@
 function [im, ii_im]= LoadIm(im_fname)
 %Read the image    
-I = double(imread(im_fname));
+im = double(imread(im_fname));
 
-% Illummination invariance
-u = mean(I(:));
-o = std(I(:));
-if (o~=0)
-    im = (I-u)/o;
-else
-    im = I;
+%Image normalization
+mu = mean(im(:));
+sigma = std(im(:));
+if (sigma~=0)
+    im = (im-mu)/sigma;
 end
 
-% Cumulative sum. First in y and then in x.
+%Compute the integral image
 ii_im = cumsum(cumsum(im,2));
 
 end
