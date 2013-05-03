@@ -1,6 +1,6 @@
 %% LoadIm debug 2.1
-dinfo1 = load('../DebugInfo/debuginfo1.mat');
-[im ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
+dinfo1 = load('DebugInfo/debuginfo1.mat');
+[im ii_im] = LoadIm('TrainingImages/FACES/face00001.bmp');
 eps = 1e-6;
 s1 = sum(abs(dinfo1.im(:) - im(:)) > eps);
 s2 = sum(abs(dinfo1.ii_im(:) - ii_im(:)) > eps);
@@ -17,7 +17,7 @@ s1 = (sum(sum(im(y:y+h-1, x:x+w-1))) - ComputeBoxSum(ii_im, x, y, w, h)) > eps;
 assert(s1 == 0, 'Problem in ComputeBoxSum')
 
 %% Feature computation 2.3
-dinfo2 = load('../DebugInfo/debuginfo2.mat');
+dinfo2 = load('DebugInfo/debuginfo2.mat');
 x = dinfo2.x; y = dinfo2.y; w = dinfo2.w; h = dinfo2.h;
 
 s1 = abs(dinfo2.f1 - FeatureTypeI(ii_im, x, y, w, h)) > eps;
@@ -32,7 +32,7 @@ assert(s1 == 0, 'Problem in FeatureTypeIV')
 % -------------------------------------------
 % Debug 3
 % -------------------------------------------
-DirName = '../TrainingImages/FACES/';
+DirName = 'TrainingImages/FACES/';
 format = 'bmp';
 mystr = [DirName,'/*.',format];
 im_files = dir(mystr);
@@ -47,7 +47,7 @@ for i = 1:100
     % store each ii_im
     ii_ims(i,:,:)= ii_im;
 end
-dinfo3 = load('../DebugInfo/debuginfo3.mat');
+dinfo3 = load('DebugInfo/debuginfo3.mat');
 ftype = dinfo3.ftype;
 s1 = sum(abs(dinfo3.fs - ComputeFeature(ii_ims, ftype)) > eps)
 assert(s1 == 0, 'Problem in ComputeFeatur')
@@ -140,7 +140,7 @@ assert(s1 == 0, 'Problem in ComputeFeatur')
 % -------------------------------------------
 % Debug 2.5 - Checking all
 % -------------------------------------------
-dinfo5 = load('../DebugInfo/debuginfo5.mat'); 
+dinfo5 = load('DebugInfo/debuginfo5.mat'); 
 np = dinfo5.np;
 nn = dinfo5.nn;
 all_ftypes = dinfo5.all_ftypes;
