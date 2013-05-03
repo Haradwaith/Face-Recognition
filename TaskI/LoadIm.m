@@ -1,5 +1,5 @@
 function [im, ii_im]= LoadIm(im_fname)
-%Read the image    
+%Read the image
 im = double(imread(im_fname));
 
 %Image normalization
