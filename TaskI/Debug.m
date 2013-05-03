@@ -57,7 +57,7 @@ x = 2; y = 2; w = 4; h = 2;
 b_vec = VecBoxSum(x, y, w, h, 19, 19);
 A1 = ii_im(:)' * b_vec;
 A2 = ComputeBoxSum(ii_im, x, y, w, h);
-assert(A1 == A2, 'Problem in VecBoxSum')
+assert(A1 - A2 < eps, 'Problem in VecBoxSum')
 
 %% VecFeature sanity check
 
@@ -66,7 +66,7 @@ x = 2; y = 5; w = 4; h = 1;
 ftype_vec = VecFeature([1, x, y, w, h], 19, 19);
 A1 = ii_im(:)'*ftype_vec;
 A2 = FeatureTypeIV(ii_im,x,y,w,h);
-assert(A1 == A2, 'Problem in VecFeature')
+assert(A1 - A2 < eps, 'Problem in VecFeature')
 
 %% VecComputeFeature sanity check
 
