@@ -51,6 +51,13 @@ ftype = dinfo3.ftype;
 s1 = sum(abs(dinfo3.fs - ComputeFeature(ii_ims, ftype)) > eps);
 assert(s1 == 0, 'Problem in ComputeFeature')
 
+%% VecBoxSum sanity check
+
+b_vec = VecBoxSum(x, y, w, h, 19, 19);
+A1 = ii_im(:)' * b_vec;
+A2 = ComputeBoxSum(ii_im, x, y, w, h);
+assert(A1 == A2, 'Problem in VecBoxSum')
+
 %%
 
 % % -------------------------------------------
