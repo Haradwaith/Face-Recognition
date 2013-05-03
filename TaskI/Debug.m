@@ -48,7 +48,6 @@ for i = 1:100
 end
 dinfo3 = load('DebugInfo/debuginfo3.mat');
 ftype = dinfo3.ftype;
-<<<<<<< HEAD
 s1 = sum(abs(dinfo3.fs - ComputeFeature(ii_ims, ftype)) > eps);
 assert(s1 == 0, 'Problem in ComputeFeature')
 
