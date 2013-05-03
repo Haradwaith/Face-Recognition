@@ -9,6 +9,7 @@ function boxsum = ComputeBoxSum(ii_im, x, y, w, h)
 %
 % We compute the sum of the box with :
 % boxsum = area_of_the_whole_box + inter - up - left
+
 left = 0;
 up = 0;
 inter = 0;

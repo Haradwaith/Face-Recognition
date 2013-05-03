@@ -1,4 +1,4 @@
-% Debug 2.1
+%% LoadIm debug 2.1
 dinfo1 = load('../DebugInfo/debuginfo1.mat');
 [im ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
 eps = 1e-6;
@@ -16,7 +16,7 @@ eps = 1e-6;
 s1 = (sum(sum(im(y:y+h-1, x:x+w-1))) - ComputeBoxSum(ii_im, x, y, w, h)) > eps;
 assert(s1 == 0, 'Problem in ComputeBoxSum')
 
-% Debug 2.3
+%% Feature computation 2.3
 dinfo2 = load('../DebugInfo/debuginfo2.mat');
 x = dinfo2.x; y = dinfo2.y; w = dinfo2.w; h = dinfo2.h;
 
