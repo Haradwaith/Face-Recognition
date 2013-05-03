@@ -95,19 +95,14 @@ assert(sum(abs(fs1-fs2')> eps) == 0, 'Problem in VecComputeFeature')
 
 %% LoadSaveImData sanity check
 
-LoadSaveImData('TrainingImages/FACES/', 100, 'FaceData.mat');
+LoadSaveImData('TrainingImages/FACES/', 100, 'TaskI/FaceData.mat');
+
+%% ComputeSaveFData sanity check
+
+all_ftypes = EnumAllFeatures(19,19);
+ComputeSaveFData(all_ftypes,'TaskI/FeaturesToMat.mat');
 
 %%
-% % -------------------------------------------
-% % Debug 2.5 - Prgm 14
-% % -------------------------------------------
-% all_ftypes = [];
-% all_ftypes = [all_ftypes;EnumAllFeatures(19,19,1)];
-% all_ftypes = [all_ftypes;EnumAllFeatures(19,19,2)];
-% all_ftypes = [all_ftypes;EnumAllFeatures(19,19,3)];
-% all_ftypes = [all_ftypes;EnumAllFeatures(19,19,4)];
-% ComputeSaveFData(all_ftypes,'FeaturesToMat.mat');
-% 
 % % -------------------------------------------
 % % Debug 2.5 - Checking for Pgrm 13 & 14
 % % -------------------------------------------
