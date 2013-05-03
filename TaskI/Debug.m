@@ -93,35 +93,28 @@ fs1 = VecComputeFeature(ii_ims, fmat(:,1));
 fs2 = ComputeFeature(ii_ims, all_ftypes(1,:));
 assert(sum(abs(fs1-fs2')> eps) == 0, 'Problem in VecComputeFeature')
 
-%% LoadSaveImData sanity check
+%% Debug Point 2.5
 
-LoadSaveImData('TrainingImages/FACES/', 100, 'TaskI/FaceData.mat');
+dinfo4 = load('DebugInfo/debuginfo4.mat');
+ni = dinfo4.ni;
+all_ftypes = dinfo4.all_ftypes;
+im_sfn = 'TaskI/FaceData.mat';
+f_sfn = 'TaskI/FeaturesToMat.mat';
+rng(dinfo4.jseed);
 
-%% ComputeSaveFData sanity check
+dirname = 'TrainingImages/FACES/';
+LoadSaveImData(dirname, ni, im_sfn);
+ComputeSaveFData(all_ftypes, f_sfn);
 
-all_ftypes = EnumAllFeatures(19,19);
-ComputeSaveFData(all_ftypes,'TaskI/FeaturesToMat.mat');
+min = load('TaskI/FeaturesToMat.mat');
+A1 = sum(sum(abs(dinfo4.fmat-min.fmat)>eps));
+assert(A1 == 0, 'Problem in ComputeSaveFData')
+min2 = load('TaskI/FaceData.mat');
+A2 = sum(sum(abs(dinfo4.ii_ims-min2.ii_ims)>eps));
+assert(A2 == 0, 'Problem in LoadSaveImData')
+
 
 %%
-% % -------------------------------------------
-% % Debug 2.5 - Checking for Pgrm 13 & 14
-% % -------------------------------------------
-% dinfo4 = load('../DebugInfo/debuginfo4.mat'); 
-% ni = dinfo4.ni;
-% all_ftypes = dinfo4.all_ftypes;
-% im_sfn = 'FaceData.mat';
-% f_sfn = 'FeaturesToMat.mat';
-% rng(dinfo4.jseed);
-% dirname = '../TrainingImages/FACES/';
-% LoadSaveImData(dirname, ni, im_sfn); 
-% ComputeSaveFData(all_ftypes, f_sfn);
-% % compare that the fmat and dinfo4.fmat are the same
-% min = load('FeaturesToMat.mat');
-% sum(sum(abs(dinfo4.fmat-min.fmat)>eps))
-% % Compare that ii_ims and dinfo4.ii_ims are the same
-% min2 = load('FaceData.mat');
-% sum(sum(abs(dinfo4.ii_ims-min2.ii_ims)>eps))
-
 % -------------------------------------------
 % Debug 2.5 - Checking all
 % -------------------------------------------
