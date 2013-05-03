@@ -32,7 +32,7 @@ for w = 1:floor(W/2)-2
 end
 
 
-% Width splits in 2 parts.
+% Width splits in 3 parts.
 for w = 1:floor(W/3)-2
     % Height is constant.
     for h = 1:H-2
