@@ -53,32 +53,23 @@ assert(s1 == 0, 'Problem in ComputeFeature')
 
 %% VecBoxSum sanity check
 
+x = 2; y = 2; w = 4; h = 2;
 b_vec = VecBoxSum(x, y, w, h, 19, 19);
 A1 = ii_im(:)' * b_vec;
 A2 = ComputeBoxSum(ii_im, x, y, w, h);
 assert(A1 == A2, 'Problem in VecBoxSum')
 
+%% VecFeature sanity check
+
+[im ii_im] = LoadIm('TrainingImages/FACES/face00001.bmp');
+x = 2; y = 5; w = 4; h = 1;
+ftype_vec = VecFeature([1, x, y, w, h], 19, 19);
+A1 = ii_im(:)'*ftype_vec;
+A2 = FeatureTypeIV(ii_im,x,y,w,h);
+assert(A1 == A2, 'Problem in VecFeature')
+
 %%
 
-% % -------------------------------------------
-% % Debug 2.4 - Vectorize Prgm 9
-% % -------------------------------------------
-% [im, ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
-% x = 2; y = 2; w = 4; h = 2;
-% b_vec = VecBoxSum(x,y,w,h,19,19);
-% A1 = ii_im(:)'*b_vec
-% A2 = ComputeBoxSum(ii_im,x,y,w,h)
-% 
-% 
-% % -------------------------------------------
-% % Debug 2.4 - Vectorize Prgm 10
-% % -------------------------------------------
-% [im, ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
-% x = 2; y = 5; w = 4; h = 1;
-% ftype_vec = VecFeature([4, x, y, w, h], 19, 19);
-% A1 = ii_im(:)'*ftype_vec
-% A2 = FeatureTypeIV(ii_im,x,y,w,h)
-% 
 % % -------------------------------------------
 % % Debug 2.4 - Vectorize Prgm 12
 % % -------------------------------------------
