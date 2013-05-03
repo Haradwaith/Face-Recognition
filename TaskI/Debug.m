@@ -1,4 +1,34 @@
-% 
+% Debug 2.1
+dinfo1 = load('../DebugInfo/debuginfo1.mat');
+[im ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
+eps = 1e-6;
+s1 = sum(abs(dinfo1.im(:) - im(:)) > eps);
+s2 = sum(abs(dinfo1.ii_im(:) - ii_im(:)) > eps);
+assert(s1 == 0, 'Problem with image normalisation in LoadIm')
+assert(s2 == 0, 'Problem with integral image in LoadIm')
+
+% Debug 2.2
+x = 1;
+y = 1;
+h = 5;
+w = 7;
+eps = 1e-6;
+s1 = (sum(sum(im(y:y+h-1, x:x+w-1))) - ComputeBoxSum(ii_im, x, y, w, h)) > eps;
+assert(s1 == 0, 'Problem in ComputeBoxSum')
+
+% Debug 2.3
+dinfo2 = load('../DebugInfo/debuginfo2.mat');
+x = dinfo2.x; y = dinfo2.y; w = dinfo2.w; h = dinfo2.h;
+
+s1 = abs(dinfo2.f1 - FeatureTypeI(ii_im, x, y, w, h)) > eps;
+assert(s1 == 0, 'Problem in FeatureTypeI')
+s1 = abs(dinfo2.f2 - FeatureTypeII(ii_im, x, y, w, h)) > eps;
+assert(s1 == 0, 'Problem in FeatureTypeII')
+s1 = abs(dinfo2.f3 - FeatureTypeIII(ii_im, x, y, w, h)) > eps;
+assert(s1 == 0, 'Problem in FeatureTypeIII')
+s1 = abs(dinfo2.f4 - FeatureTypeIV(ii_im, x, y, w, h)) > eps;
+assert(s1 == 0, 'Problem in FeatureTypeIV')
+
 % % -------------------------------------------
 % % Debug 3
 % % -------------------------------------------
@@ -119,6 +149,3 @@ GetTrainingData(all_ftypes,np,nn);
 Fdata = load('FaceData.mat');
 NFdata = load('NonFaceData.mat');
 FTdata = load('FeaturesToUse.mat');
-
-
-

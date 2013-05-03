@@ -1,5 +1,5 @@
 function [im, ii_im]= LoadIm(im_fname)
-%Read the image    
+%Read the image
 I = double(imread(im_fname));
 
 % Illummination invariance
