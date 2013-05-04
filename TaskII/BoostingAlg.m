@@ -7,15 +7,22 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 	% Number of positive examples
 	p = size(Fdata.ii_ims,1);
 	% Labels
-	ys = [ones(1,p) zeros(1,m)];
+	ys = [ones(p,1); zeros(m,1)];
 	% Initialize weights
-	w(1,1:p) = (2*p)^-1;
-	w(1,p+1:p+m) = (2*m)^-1;
+	w(1:p,1) = (2*p)^-1;
+	w(p+1:p+m,1) = (2*m)^-1;
+	data = [Fdata.ii_ims; NFdata.ii_ims];
+
+	feats = zeros(size(Fdata.ii_ims, 1) + size(NFdata.ii_ims, 1), size(FTdata.fmat, 2));
+	for j = 1:size(FTdata.fmat, 2)
+		feats(:,j) = VecComputeFeature(data, FTdata.fmat(:,j));
+	end
+	 
 
 	for t = 1:T
 
 		% Normalize weights
-		w(t,:) = w(t,:) / sum(w(t,:));
+		w(:,t) = w(:,t) / sum(w(:,t));
 
 		lowestErr = 0;
 		feature = 0;
@@ -23,11 +30,7 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 		par = 0;
 		response = [];
 		for j = 1:size(FTdata.fmat, 2)
-            % Fdata.ii_ims*Fdata.fmat(:,j) similar to
-            % VecComputeFeature(ii_ims, fmat(:,j).
-			feat_j = [Fdata.ii_ims * FTdata.fmat(:,j); NFdata.ii_ims * FTdata.fmat(:,j)]';
-            % Train the classifier.
-			[theta, p, err] = LearnWeakClassifier(w(t,:),feat_j,ys);
+			[theta, p, err] = LearnWeakClassifier(w(:,t),feats(:,j),ys);
 
 			% Update parameters of optimal feature if necessary
 			if j == 1
@@ -35,14 +38,14 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 				feature = j;
 				threshold = theta;
 				par = p;
-				response = feat_j;
+				response = feats(:,j);
 			else
 				if err < lowestErr
 					lowestErr = err;
 					feature = j;
 					threshold = theta;
 					par = p;
-					response = feat_j;
+					response = feats(:,j);
 				end
 			end
 		end
@@ -56,7 +59,7 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 
 		% Update weights
 		h = par * response < par * threshold;
-		w(t+1,:) = w(t,:) .* beta .^ (1 - abs(h - ys));
+		w(:, t+1) = w(:, t) .* beta .^ (1 - abs(h - ys));
 
 		Cparams.alphas(t) = log(1/beta);
 
