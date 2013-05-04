@@ -70,7 +70,7 @@ imagesc(fpic); axis equal; axis off; colormap gray;
 %% Program 18 Debug
 %% ----------------------------------
 figure()
-cpic = MakeClassifierPic(all_ftypes, [5192, 12765], [1.8725,1.467], [1,-1],19,19);
+cpic = MakeClassifierPic(FTdata.all_ftypes, [5192, 12765], [1.8725,1.467], [1,-1],19,19);
 imagesc(cpic); axis equal; axis off; colormap gray;
 
 
