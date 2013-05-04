@@ -7,7 +7,7 @@ fnums = aa(a(1:ni));
 %Load data
 for i = 1:ni
     im_fname = [dirname, face_fnames(fnums(i)).name];
-    [im, ii_im] = LoadIm(im_fname);
+    [~, ii_im] = LoadIm(im_fname);
     if i == 1
         ii_ims = zeros(ni,size(ii_im,1)*size(ii_im,2));
     end
