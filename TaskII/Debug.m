@@ -86,9 +86,7 @@ FTdata_1k.fmat = FTdata_1k.fmat(:,1:1000);
 
 dinfo6 = load('DebugInfo/debuginfo6.mat');
 T = dinfo6.T;
-%tic;
 Cparams = BoostingAlg(Fdata, NFdata, FTdata_1k, T);
-%t = toc
 s1 = sum(abs(dinfo6.alphas - Cparams.alphas')>eps);
 s2 = sum(abs(dinfo6.Thetas(:)  - Cparams.Thetas(:))>eps);
 assert(s1 == 0 && s2 == 0, 'Problem in BostingAlg');
@@ -109,37 +107,38 @@ fpic = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cp
 % Diplay the images
 montage({fpic1,fpic2,fpic3,fpic},'Size',[1 4])
 
-% % ----------------------------------
-% % Program 19 Debug 2
-% % ----------------------------------
-% dinfo7 = load('../DebugInfo/debuginfo7.mat');
-% T = dinfo7.T;
-% Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
-% sum(abs(dinfo7.alphas - Cparams.alphas')>eps)
-% sum(abs(dinfo7.Thetas(:)  - Cparams.Thetas(:))>eps)
-% 
-% fs = struct('pics',zeros(T+1,FTdata.W,FTdata.H));
-% for t= 1:T
-%     % Compute the feature pics. 
-%     fs.pics(t,:,:) = MakeFeaturePic(FTdata.all_ftypes(Cparams.Thetas(t,1),:),FTdata.W,FTdata.H);
-% end    
-% 
-% % Compute the final classifier pic.
-% fs.pics(T+1,:,:) = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cparams.Thetas(:,3)',FTdata.W,FTdata.H);
-% 
-% 
-% % Diplay the images
-% a = [];
-% for i= 1:(T+1)
-%     a = [a,reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)];
-%     % Individual images
-%     figure();imagesc( reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)); colormap gray;
-% end
-% montage(a)
-% 
-% % Save the data
-% name = 'Cparams.mat';
-% save(name, 'Cparams');
+% ----------------------------------
+% Program 19 Debug 2
+% ----------------------------------
+dinfo7 = load('DebugInfo/debuginfo7.mat');
+T = dinfo7.T;
+Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
+s1 = sum(abs(dinfo7.alphas - Cparams.alphas')>eps);
+s2 = sum(abs(dinfo7.Thetas(:)  - Cparams.Thetas(:))>eps);
+assert(s1 == 0 && s2 == 0, 'Problem in BostingAlg');
+
+fs = struct('pics',zeros(T+1,FTdata.W,FTdata.H));
+for t= 1:T
+    % Compute the feature pics.
+    fs.pics(t,:,:) = MakeFeaturePic(FTdata.all_ftypes(Cparams.Thetas(t,1),:),FTdata.W,FTdata.H);
+end
+
+% Compute the final classifier pic.
+fs.pics(T+1,:,:) = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cparams.Thetas(:,3)',FTdata.W,FTdata.H);
+
+
+% Diplay the images
+a = [];
+for i= 1:(T+1)
+    a = [a,reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)];
+    % Individual images
+    figure();imagesc( reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)); colormap gray;
+end
+montage(a)
+
+% Save the data
+name = 'Cparams.mat';
+save(name, 'Cparams');
 
 
 % ----------------------------------
