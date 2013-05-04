@@ -16,10 +16,8 @@ for i=1:length(face_test_index)
     % Load data
     % ----------------
     [im, ii_im] = LoadIm(im_fname);
-    
     % Apply detector
     scores_faces(i) = ApplyDetector(Cparams, ii_im);
-    
 end
 
 % Get the test images.
@@ -38,10 +36,8 @@ for i=1:length(Nface_test_index)
     % Load data
     % ----------------
     [im, ii_im] = LoadIm(im_fname);
-    
     % Apply detector
     scores_Nfaces(i) = ApplyDetector(Cparams, ii_im);
-    
 end
 
 start = min([scores_faces,scores_Nfaces]);
@@ -55,17 +51,12 @@ np = length(scores_faces);
 nn = length(scores_Nfaces);
 thresholds = linspace(start,stop,STEPS);
 for thresh = thresholds
-    
     % Number of true positives
     tpr(i) = sum(scores_faces >= thresh) / (np);   
-        
     % Number of false positives
     fpr(i) = sum(scores_Nfaces >= thresh) / (nn);
-    
     % Update i
     i=i+1;
-    
-    
 end
 plot(fpr,tpr)
 xlabel('fpr')
@@ -81,7 +72,6 @@ axis([-0.01,1,0,1.01])
 % hold off
 % legend('True positive rate', 'False positive rate')
 
-
-thresh = thresholds(find(tpr < 0.7,1)-1);
+thresh = thresholds(find(tpr < 0.7,1)-1)
 
 end

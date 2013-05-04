@@ -1,7 +1,7 @@
 % Debug file
 
 % Program 20
-Cparams = load('../TaskII/Cparams.mat');
+Cparams = load('Cparams.mat');
 Cparams = Cparams.Cparams;
 Fdata = load('FaceData.mat');
 NFdata = load('NonFaceData.mat');
@@ -11,8 +11,9 @@ FTdata = load('FeaturesToUse.mat');
 % % ----------------------------------
 % % Program 20 Debug
 % % ----------------------------------
-% [im, ii_im] = LoadIm('../TrainingImages/FACES/face00001.bmp');
-% sc = ApplyDetector(Cparams, ii_im)
+[im, ii_im] = LoadIm('TrainingImages/FACES/face00001.bmp');
+sc = ApplyDetector(Cparams, ii_im);
+assert(sc - 9.1409 < 1e-4, 'Problem with ApplyDetector');
 
 
 % ----------------------------------
