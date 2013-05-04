@@ -1,4 +1,4 @@
-function fpic = MakeFeaturePic(ftype, W, H);
+function fpic = MakeFeaturePic(ftype, W, H)
 
 	fpic = zeros(W,H);
 	x = ftype(2);
