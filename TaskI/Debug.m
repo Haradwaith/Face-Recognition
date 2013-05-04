@@ -89,7 +89,7 @@ for i = 1:100
 end
 all_ftypes = EnumAllFeatures(W,H);
 fmat = VecAllFeatures(all_ftypes,W,H);
-fs1 = VecComputeFeature(ii_ims, fmat(:,1));
+fs1 = VecComputeFeature(ii_ims(:,:), fmat(:,1));
 fs2 = ComputeFeature(ii_ims, all_ftypes(1,:));
 assert(sum(abs(fs1-fs2')> eps) == 0, 'Problem in VecComputeFeature')
 
