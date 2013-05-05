@@ -1,6 +1,6 @@
 function dets = ScanImageFixedSize(Cparams, im)
 
-if size(im, 3) > 1
+if size(im, 3) == 3
     im = im(:,:,1) + im(:,:,2) + im(:,:, 3);
 end
 
