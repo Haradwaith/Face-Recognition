@@ -5,10 +5,9 @@ if size(im,3) == 3
 end
 
 dets = [];
-size(im)
+
 for s = min_s:step_s:max_s
     scaled_im = imresize(im, s);
-    size(scaled_im)
     s_dets = ScanImageFixedSize(Cparams, scaled_im);
     %s_fdets = PruneDetections(s_dets);
 
