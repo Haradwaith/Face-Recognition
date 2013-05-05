@@ -10,7 +10,7 @@ for i = 1:detectedFaceNumber
  
     x = dets(i, 1)-0.5;
     y = dets(i, 2)-0.5;
-    w = dets(i, 3)+0.5;
+    w = dets(i, 3);
     h = dets(i, 4)+0.5;
     rectangle('Position',[x, y, w, h],'EdgeColor', 'r');
     % % Wrong ploting
