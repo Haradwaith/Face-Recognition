@@ -7,7 +7,7 @@ function fpic = MakeFeaturePic(ftype, W, H)
 	h = ftype(5);
 
 	switch ftype(1)
-
+        
 		case 1
 			fpic(y:y+h-1,x:x+w-1) = -1;
 			fpic(y+h:y+2*h-1,x:x+w-1) = 1;
