@@ -70,10 +70,11 @@ DisplayDetections(path, dets);
 %DisplayDetections(path, fdets);
 %
 %% Test ScanImageOverScale: Fucked!!!
-min_s = 0.1;
-max_s = 1.0;
+scaled_im = imresize(im, 1.2);
+min_s = 0.8;
+max_s = 0.8;
 step_s = .06;
 Cparams_scale = Cparams;
 Cparams_scale.thresh = 8;
-dets = ScanImageOverScale(Cparams_scale, im, min_s, max_s, step_s);
+dets = ScanImageOverScale(Cparams_scale, scaled_im, min_s, max_s, step_s);
 DisplayDetections(path, dets);

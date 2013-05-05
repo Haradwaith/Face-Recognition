@@ -12,7 +12,7 @@ for s = min_s:step_s:max_s
     s_dets = ScanImageFixedSize(Cparams, scaled_im);
     %s_fdets = PruneDetections(s_dets);
 
-    s_dets(:,:) = round(s_dets(:,:) / s);
+    s_dets(:,:) = round(s_dets(:,:) / sqrt(s));
 
     dets = [dets; s_dets];
 
