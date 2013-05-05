@@ -49,4 +49,11 @@ DisplayDetections(big_path, dets);
 %% Test ScanImageOverScale on rescaled Chris
 
 close all
-
+rescaled_im = imresize(im, 1.2);
+min_s = 0.6;
+max_s = 1.3;
+step_s = .06;
+Cparams_scale = Cparams;
+Cparams_scale.thresh = 8;
+dets = ScanImageOverScale(Cparams_scale, rescaled_im, min_s, max_s, step_s);
+DisplayDetections(path, dets, 1.2);
