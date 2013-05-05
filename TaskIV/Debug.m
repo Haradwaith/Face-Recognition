@@ -22,6 +22,7 @@ colormap gray;
 %% Program 23 Debug
 
 %% Test ScanImageFixedSize
+close all
 path = 'TestImages/one_chris.png';
  
 % Load the image
