@@ -1,7 +1,6 @@
 function dets = ScanImageFixedSize(Cparams, im)
 
 if size(im, 3) > 1
-    %im = im(:,:,1) + im(:,:,2) + im(:,:, 3);
     im = rgb2gray(im);
 end
 
