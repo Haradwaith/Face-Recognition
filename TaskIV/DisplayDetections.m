@@ -1,7 +1,9 @@
-function DisplayDetections(im, dets)
+function DisplayDetections(im, dets, s)
 % just a test
 I = imread(im);
-%I = imresize(I, s);
+if nargin == 3
+    I = imresize(I, s);
+end
  
 figure(); imagesc(I); axis equal;
 detectedFaceNumber = size(dets,1);

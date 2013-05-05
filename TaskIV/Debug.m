@@ -22,6 +22,7 @@ colormap gray;
 %% Program 23 Debug
 
 %% Test ScanImageFixedSize
+
 close all
 path = 'TestImages/one_chris.png';
  
@@ -32,18 +33,20 @@ path = 'TestImages/one_chris.png';
 dets = ScanImageFixedSize(Cparams, im);
 DisplayDetections(path, dets);
 
-%% Display the detected face with pruning
-%fdets = PruneDetections(dets);
-%DisplayDetections(path, fdets);
-%
-%% Test ScanImageOverScale
+%% Test ScanImageOverScale on Big Chris
+
 close all
-path = 'TestImages/big_one_chris.png';
-[big_im, vig_ii_im] = LoadIm(path);
+big_path = 'TestImages/big_one_chris.png';
+[big_im, vig_ii_im] = LoadIm(big_path);
 min_s = 0.6;
 max_s = 1.3;
 step_s = .06;
 Cparams_scale = Cparams;
 Cparams_scale.thresh = 8;
 dets = ScanImageOverScale(Cparams_scale, big_im, min_s, max_s, step_s);
-DisplayDetections(path, dets);
+DisplayDetections(big_path, dets);
+
+%% Test ScanImageOverScale on rescaled Chris
+
+close all
+
