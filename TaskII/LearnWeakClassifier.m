@@ -1,7 +1,9 @@
 function [theta, p, err] = LearnWeakClassifier(ws, fs, ys)
 
-	mu_p = sum(ws .* fs .* ys) / sum(ws .* ys);
-	mu_n = sum(ws .* fs .* (1-ys)) / sum(ws .* (1-ys));
+    a = ws .* ys;
+    b = ws .* (1-ys);
+	mu_p = sum(a .* fs) / sum(a);
+	mu_n = sum(b .* fs) / sum(b);
 
 	theta = .5 * (mu_p + mu_n);
 
