@@ -36,12 +36,14 @@ DisplayDetections(path, dets);
 %fdets = PruneDetections(dets);
 %DisplayDetections(path, fdets);
 %
-%% Test ScanImageOverScale: Fucked!!!
-scaled_im = imresize(im, 1.2);
-min_s = 0.8;
-max_s = 0.8;
+%% Test ScanImageOverScale
+close all
+path = 'TestImages/big_one_chris.png';
+[big_im, vig_ii_im] = LoadIm(path);
+min_s = 0.6;
+max_s = 1.3;
 step_s = .06;
 Cparams_scale = Cparams;
 Cparams_scale.thresh = 8;
-dets = ScanImageOverScale(Cparams_scale, scaled_im, min_s, max_s, step_s);
+dets = ScanImageOverScale(Cparams_scale, big_im, min_s, max_s, step_s);
 DisplayDetections(path, dets);
