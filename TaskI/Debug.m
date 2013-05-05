@@ -114,17 +114,14 @@ A2 = sum(sum(abs(dinfo4.ii_ims-min2.ii_ims)>eps));
 assert(A2 == 0, 'Problem in LoadSaveImData')
 
 
-%%
-% -------------------------------------------
-% Debug 2.5 - Checking all
-% -------------------------------------------
+%% Debug Point 2.5 - Checking all
+
 dinfo5 = load('DebugInfo/debuginfo5.mat'); 
 np = dinfo5.np;
 nn = dinfo5.nn;
 all_ftypes = dinfo5.all_ftypes;
 rng(dinfo5.jseed);
 GetTrainingData(all_ftypes,np,nn);
-% Load the files into Matlab
 Fdata = load('FaceData.mat');
 NFdata = load('NonFaceData.mat');
 FTdata = load('FeaturesToUse.mat');
