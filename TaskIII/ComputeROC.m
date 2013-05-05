@@ -1,6 +1,6 @@
 function thresh = ComputeROC(Cparams, Fdata, NFdata)
 
-% Get the test images.
+% Get test images.
 face_fnames = dir(Fdata.dirname);
 index = 3:length(face_fnames);
 face_test_index = setdiff(index,Fdata.fnums);
@@ -8,15 +8,10 @@ face_test_index = setdiff(index,Fdata.fnums);
 % Store the values of scores.
 scores_faces = zeros(1,length(face_test_index));
 
-% To access the test images we do
+% Apply detector on all images
 for i=1:length(face_test_index)
-    % Choose filename
     im_fname = [Fdata.dirname, face_fnames(face_test_index(i)).name];
-    % ----------------
-    % Load data
-    % ----------------
     [im, ii_im] = LoadIm(im_fname);
-    % Apply detector
     scores_faces(i) = ApplyDetector(Cparams, ii_im);
 end
 
@@ -30,13 +25,8 @@ scores_Nfaces = zeros(1,length(Nface_test_index));
 
 % To access the test images we do
 for i=1:length(Nface_test_index)
-    % Choose filename
     im_fname = [NFdata.dirname, face_fnames(Nface_test_index(i)).name];
-    % ----------------
-    % Load data
-    % ----------------
     [im, ii_im] = LoadIm(im_fname);
-    % Apply detector
     scores_Nfaces(i) = ApplyDetector(Cparams, ii_im);
 end
 
@@ -62,15 +52,6 @@ plot(fpr,tpr)
 xlabel('fpr')
 ylabel('tpr')
 axis([-0.01,1,0,1.01])
-
-% % Debug for tpr
-% figure()
-% plot(linspace(start,stop,STEPS),tpr)
-% hold on
-% % Debug for fpr
-% plot(linspace(start,stop,STEPS),fpr,'r')
-% hold off
-% legend('True positive rate', 'False positive rate')
 
 thresh = thresholds(find(tpr < 0.7,1)-1)
 
