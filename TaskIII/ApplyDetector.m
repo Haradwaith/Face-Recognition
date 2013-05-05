@@ -15,5 +15,5 @@ end
 
 % Weak classifier.
 function cls = h(f,p,theta)
-	cls = p.*f < p*theta;
+	cls = p*f < p*theta;
 end
