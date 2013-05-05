@@ -32,7 +32,7 @@ fs = [fsp;fsn];
 % Correct + incorrect.
 ys = [ones(n,1);zeros(m,1)];
 
-% Create the weights (according to alg 2) ?ws = 1
+% Create the weights (according to alg 2)
 ws = ones(n+m,1)/(n+m);
 
 % Call LearnWeakClassifier
@@ -61,16 +61,21 @@ legend('Face','','NonFace','','Theta');
 %% ----------------------------------
 %% Program 17 Debug
 %% ----------------------------------
+close all;
 figure()
-fpic = MakeFeaturePic([4, 5, 5, 5, 5], 19, 19);
-imagesc(fpic); axis equal; axis off; colormap gray;
+for i = 1:4
+    subplot(2,2,i);
+    fpic = MakeFeaturePic([i, 5, 5, 5, 5], 19, 19);
+    imagesc(fpic); axis equal; axis off; colormap gray;
+end
 
 
 %% ----------------------------------
 %% Program 18 Debug
 %% ----------------------------------
+close all
 figure()
-cpic = MakeClassifierPic(FTdata.all_ftypes, [5192, 12765], [1.8725,1.467], [1,-1],19,19);
+cpic = MakeClassifierPic(FTdata.all_ftypes, [5192, 12765], [1.8725,1.467], [1,-1], 19, 19);
 imagesc(cpic); axis equal; axis off; colormap gray;
 
 
@@ -82,13 +87,13 @@ imagesc(cpic); axis equal; axis off; colormap gray;
 FTdata_1k = FTdata;
 FTdata_1k.all_ftypes = FTdata_1k.all_ftypes(1:1000,:);
 FTdata_1k.fmat = FTdata_1k.fmat(:,1:1000);
-
+eps = 1e-6;
 
 dinfo6 = load('DebugInfo/debuginfo6.mat');
 T = dinfo6.T;
 Cparams = BoostingAlg(Fdata, NFdata, FTdata_1k, T);
-s1 = sum(abs(dinfo6.alphas - Cparams.alphas')>eps);
-s2 = sum(abs(dinfo6.Thetas(:)  - Cparams.Thetas(:))>eps);
+s1 = sum(abs(dinfo6.alphas - Cparams.alphas')>eps)
+s2 = sum(abs(dinfo6.Thetas(:)  - Cparams.Thetas(:))>eps)
 assert(s1 == 0 && s2 == 0, 'Problem in BostingAlg');
 
 % Graph the features 
@@ -107,10 +112,11 @@ fpic = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cp
 % Diplay the images
 montage({fpic1,fpic2,fpic3,fpic},'Size',[1 4])
 
-% ----------------------------------
-% Program 19 Debug 2
-% ----------------------------------
+%% ----------------------------------
+%% Program 19 Debug 2
+%% ----------------------------------
 dinfo7 = load('DebugInfo/debuginfo7.mat');
+eps = 1e-6;
 T = dinfo7.T;
 Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
 s1 = sum(abs(dinfo7.alphas - Cparams.alphas')>eps);
@@ -132,7 +138,7 @@ a = [];
 for i= 1:(T+1)
     a = [a,reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)];
     % Individual images
-    figure();imagesc( reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)); colormap gray;
+    %figure();imagesc( reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)); colormap gray;
 end
 montage(a)
 
@@ -141,38 +147,3 @@ name = 'Cparams.mat';
 save(name, 'Cparams');
 
 
-% ----------------------------------
-%% Save more data
-% ----------------------------------
-% Create a subset of only N features.
-% N = 8000;
-% FTdata_N = FTdata;
-% FTdata_N.all_ftypes = FTdata_N.all_ftypes(1:N,:);
-% FTdata_N.fmat = FTdata_N.fmat(:,1:N);
-% FTdata = FTdata_N;
-% % Define T
-% T = 10;
-% % Get Cparams
-% Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
-% 
-% fs = struct('pics',zeros(T+1,FTdata.W,FTdata.H));
-% for t= 1:T
-%     % Compute the feature pics. 
-%     fs.pics(t,:,:) = MakeFeaturePic(FTdata.all_ftypes(Cparams.Thetas(t,1),:),FTdata.W,FTdata.H);
-% end    
-% 
-% % Compute the final classifier pic.
-% fs.pics(T+1,:,:) = MakeClassifierPic(FTdata.all_ftypes,Cparams.Thetas(:,1),Cparams.alphas,Cparams.Thetas(:,3)',FTdata.W,FTdata.H);
-% 
-% % Diplay the images
-% a = [];
-% for i= 1:(T+1)
-%     a = [a,reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)];
-%     % Individual images
-%     figure();imagesc( reshape(fs.pics(i,:,:),FTdata.W,FTdata.H)); colormap gray;
-% end
-% montage(a)
-% 
-% % Save the data
-% name = 'Cparams_8kT10.mat';
-% save(name, 'Cparams');
