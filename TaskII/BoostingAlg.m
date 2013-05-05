@@ -28,18 +28,11 @@ function Cparams = BoostingAlg(Fdata, NFdata, FTdata, T)
 			[theta, p, err] = LearnWeakClassifier(w(:,t),feats(:,j),ys);
 
 			% Update parameters of optimal feature if necessary
-			if j == 1
+			if j == 1 || err < lowestErr
 				lowestErr = err;
 				feature = j;
 				threshold = theta;
 				par = p;
-			else
-				if err < lowestErr
-					lowestErr = err;
-					feature = j;
-					threshold = theta;
-					par = p;
-				end
 			end
 		end
 		
