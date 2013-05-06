@@ -28,8 +28,7 @@ path = 'TestImages/one_chris.png';
  
 % Load the image
 [im, ii_im] = LoadIm(path);
- 
-% % Without pruning
+
 dets = ScanImageFixedSize(Cparams, im);
 DisplayDetections(path, dets);
 

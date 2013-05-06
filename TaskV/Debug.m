@@ -12,33 +12,41 @@ FTdata = load('FeaturesToUse.mat');
 %%
 
 T = 100;
-Cparams = BoostingAlg(Fdata, NFdata, FTdata, T);
+CparamsV = BoostingAlg(Fdata, NFdata, FTdata, T);
 
 %%
 
-thresh = ComputeROC(Cparams, Fdata, NFdata);
+ParamsV = load('TaskV');
+CparamsV.thresh = ComputeROC(ParamsV.Cparams, Fdata, NFdata);
+%save('TaskV', 'CparamsV')
 
-%%
+%% Test on Chris
 
-big_path = 'TestImages/big_one_chris.png';
-[big_im, vig_ii_im] = LoadIm(big_path);
-min_s = 0.6;
-max_s = 1.3;
-step_s = .06;
-Cparams_scale = Cparams;
-Cparams_scale.thresh = 8;
-dets = ScanImageOverScale(Cparams_scale, big_im, min_s, max_s, step_s);
-DisplayDetections(big_path, dets);
-
-%%
-
-close all
 path = 'TestImages/one_chris.png';
+ParamsV = load('TaskV');
+ParamsV.Cparams.thresh = 30;
+min_s = 0.9;
+max_s = 1.1;
+step_s = .1;
  
 % Load the image
 [im, ii_im] = LoadIm(path);
- 
-% % Without pruning
-Cparams.thresh = 28.2;
-dets = ScanImageFixedSize(Cparams, im);
+
+dets = ScanImageOverScale(ParamsV.Cparams, im, min_s, max_s, step_s);
 DisplayDetections(path, dets);
+
+%% Test on TestImages
+
+dirname = 'TestImages/';
+test_list = dir(dirname);
+aa = 3:length(test_list);
+min_s = 0.7;
+max_s = 0.7;
+step_s = .1;
+
+for i = aa
+    im_fname = [dirname, test_list(i).name]
+    [test_im, test_ii_im] = LoadIm(im_fname);
+    dets = ScanImageOverScale(ParamsV.Cparams, test_im, min_s, max_s, step_s);
+    DisplayDetections(im_fname, dets);
+end

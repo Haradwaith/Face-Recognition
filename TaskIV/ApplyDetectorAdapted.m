@@ -6,7 +6,7 @@ function sc = ApplyDetectorAdapted(Cparams, patch, sigma, mu, L)
         % Feature response
         switch Cparams.all_ftypes(Cparams.Thetas(t,1))
             case 3
-                f = patch(:)' * ((Cparams.fmat(:,Cparams.Thetas(t,1)) - mu * L^2) / sigma);
+                f = patch(:)' * ((Cparams.fmat(:,Cparams.Thetas(t,1)) - mu * Cparams.all_ftypes(Cparams.Thetas(t,1),4)*Cparams.all_ftypes(Cparams.Thetas(t,1),5)) / sigma);
             case 4
                 f = patch(:)' * (Cparams.fmat(:,Cparams.Thetas(t,1)) / sigma);
             case 2

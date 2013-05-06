@@ -15,6 +15,7 @@ assert(sc - 9.1409 < 1e-4, 'Problem with ApplyDetector');
 
 %% Program 21 Debug
 
+figure;
 thresh = ComputeROC(Cparams,Fdata,NFdata);
-Cparams.thresh = thresh;
-save(name, 'Cparams');
+%Cparams.thresh = thresh;
+%save(name, 'Cparams');
